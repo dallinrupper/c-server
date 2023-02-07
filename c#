@@ -1,0 +1,28 @@
+var builder = WebApplication.CreateBuilder(args);
+var app = builder.Build();
+app.UseStaticFiles();
+int count = 0;
+
+app.MapGet("/", () => "Hello people!");
+app.MapGet("/greeting{id}", greeting);
+app.MapGet("/page{id}", g);
+app.MapGet("/orig{id}", f);
+
+string f(int id) {
+    return $"hi <strong>world</strong> {id}";
+}
+
+HtmlResult g(int id) {
+    return new HtmlResult($"hi <strong>world</strong> {id}");
+}
+
+
+Person greeting(int id) {
+    count+=id;
+    return new Person();
+}
+app.Run();
+class Person {
+    public int Id {get; set;} = 89;
+    public string Name {get; set; }= "test";
+}
